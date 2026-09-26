@@ -19,9 +19,9 @@ export interface BaseWalletAdapter<TChain extends WalletAdapterChain, TSignature
 }
 
 // @public
-export interface ChainScannerAdapter<TItem = unknown, TKeys = unknown, TMatched = unknown, TMetaAddress = unknown> {
+export interface ChainScannerAdapter<TItem = any, TKeys = any, TMatched = any, TMetaAddress = any> {
     decodeMetaAddress(metaAddress: string): TMetaAddress;
-    encodeMetaAddress(spendingPubKey: unknown, viewingPubKey: unknown): string;
+    encodeMetaAddress(spendingPubKey: any, viewingPubKey: any): string;
     id: string;
     scan(source: AsyncIterable<TItem>, keys: TKeys): AsyncGenerator<TMatched>;
     timestampOf?(matched: TMatched): number | undefined;
@@ -64,8 +64,8 @@ export function createSolanaWalletAdapter(wallet: SolanaWalletAdapterLike): Sola
 export function createViemWalletAdapter(client: ViemWalletClient): ViemWalletAdapter;
 
 // @public
-export interface CustomChainInput<TItem = unknown, TKeys = unknown, TMatched = unknown, TMetaAddress = unknown> {
-    adapter: ChainScannerAdapter<TItem, TKeys, TMatched, TMetaAddress>;
+export interface CustomChainInput<TItem = any, TKeys = any, TMatched = any> {
+    adapter: ChainScannerAdapter<TItem, TKeys, TMatched, any>;
     keys: TKeys;
     source: AsyncIterable<TItem>;
 }
@@ -266,11 +266,10 @@ export type MatchedAnnouncement = {
     seq: number;
     announcement: MatchedStealthCell;
 } | {
-    chain: 'custom';
-    customChainId: string;
+    chain: string;
     timestamp: number;
     seq: number;
-    announcement: unknown;
+    announcement: any;
 };
 
 // @public (undocumented)
@@ -365,7 +364,7 @@ export function scanAll(input: ScanAllInput): AsyncGenerator<MatchedAnnouncement
 // @public (undocumented)
 export interface ScanAllInput {
     // (undocumented)
-    adapters?: Array<CustomChainInput<unknown, unknown, unknown, unknown>>;
+    adapters?: Array<CustomChainInput<any, any, any> | any>;
     // (undocumented)
     ckb?: CkbChainInput;
     // (undocumented)
@@ -670,10 +669,10 @@ export abstract class WraithWalletError extends WraithError {
 
 // Warnings were encountered during analysis:
 //
-// dist/unified-DZ7PcCQN.d.ts:166:5 - (ae-forgotten-export) The symbol "MatchedAnnouncement_2" needs to be exported by the entry point index.d.ts
-// dist/unified-DZ7PcCQN.d.ts:171:5 - (ae-forgotten-export) The symbol "MatchedAnnouncement$1" needs to be exported by the entry point index.d.ts
-// dist/unified-DZ7PcCQN.d.ts:176:5 - (ae-forgotten-export) The symbol "MatchedAnnouncement_3" needs to be exported by the entry point index.d.ts
-// dist/unified-DZ7PcCQN.d.ts:181:5 - (ae-forgotten-export) The symbol "MatchedStealthCell" needs to be exported by the entry point index.d.ts
+// dist/unified-B4T6tz3t.d.ts:166:5 - (ae-forgotten-export) The symbol "MatchedAnnouncement_2" needs to be exported by the entry point index.d.ts
+// dist/unified-B4T6tz3t.d.ts:171:5 - (ae-forgotten-export) The symbol "MatchedAnnouncement$1" needs to be exported by the entry point index.d.ts
+// dist/unified-B4T6tz3t.d.ts:176:5 - (ae-forgotten-export) The symbol "MatchedAnnouncement_3" needs to be exported by the entry point index.d.ts
+// dist/unified-B4T6tz3t.d.ts:181:5 - (ae-forgotten-export) The symbol "MatchedStealthCell" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 
