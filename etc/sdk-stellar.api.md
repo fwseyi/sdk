@@ -46,9 +46,16 @@ export interface AnnouncementCache {
     setLastSeen(network: Network, ledger: number, cursor: string): Promise<void>;
 }
 
+// @public (undocumented)
+export interface AnnouncementParseContext {
+    // (undocumented)
+    endpoint?: string;
+    // (undocumented)
+    eventId?: unknown;
+}
+
 // @public
 export class AnnouncementParseError extends Error {
-    // Warning: (ae-forgotten-export) The symbol "AnnouncementParseContext" needs to be exported by the entry point index.d.ts
     constructor(message: string, field: string, context?: AnnouncementParseContext);
     // (undocumented)
     readonly endpoint?: string;
