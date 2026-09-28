@@ -138,10 +138,6 @@ export function buildBatchSendTx(params: BuildBatchSendTxParams): BuildBatchSend
             val: nativeToScVal(toStroops(payments[index].amount), { type: 'i128' }),
           }),
           new xdr.ScMapEntry({
-            key: xdr.ScVal.scvSymbol('scheme_id'),
-            val: nativeToScVal(SCHEME_ID, { type: 'u32' }),
-          }),
-          new xdr.ScMapEntry({
             key: xdr.ScVal.scvSymbol('ephemeral_pub_key'),
             val: xdr.ScVal.scvBytes(Buffer.from(stealth.ephemeralPubKey)),
           }),

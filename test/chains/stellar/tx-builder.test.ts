@@ -257,13 +257,19 @@ describe('tx-builder: buildBatchSendTx', () => {
     expect(invocation.args()).toHaveLength(3);
     expect(scValToNative(invocation.args()[0])).toBe(sourceAccount.accountId());
     expect(scValToNative(invocation.args()[1])).toHaveLength(payments.length);
-    expect(scValToNative(invocation.args()[1])[0]).toMatchObject({
+    const decodedTransfer = scValToNative(invocation.args()[1])[0];
+    expect(Object.keys(decodedTransfer).sort()).toEqual([
+      'amount',
+      'ephemeral_pub_key',
+      'metadata',
+      'stealth_address',
+    ]);
+    expect(decodedTransfer).toMatchObject({
       amount: 10_000_000n,
-      scheme_id: 1,
     });
-    expect(scValToNative(invocation.args()[1])[0].stealth_address).toMatch(/^G[A-Z2-7]{55}$/);
-    expect(scValToNative(invocation.args()[1])[0].ephemeral_pub_key).toHaveLength(32);
-    expect(scValToNative(invocation.args()[1])[0].metadata).toHaveLength(1);
+    expect(decodedTransfer.stealth_address).toMatch(/^G[A-Z2-7]{55}$/);
+    expect(decodedTransfer.ephemeral_pub_key).toHaveLength(32);
+    expect(decodedTransfer.metadata).toHaveLength(1);
     expect(scValToNative(invocation.args()[2])).toMatch(/^C[A-Z2-7]{55}$/);
     expect(result.totalFee).toBe(DEFAULT_BASE_FEE);
     expect(result.usedBatchSender).toBe(true);
