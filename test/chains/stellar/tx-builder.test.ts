@@ -258,7 +258,7 @@ describe('tx-builder: buildBatchSendTx', () => {
     expect(scValToNative(invocation.args()[0])).toBe(sourceAccount.accountId());
     expect(scValToNative(invocation.args()[1])).toHaveLength(payments.length);
     const decodedTransfer = scValToNative(invocation.args()[1])[0];
-    expect(Object.keys(decodedTransfer).sort()).toEqual([
+    expect(Object.keys(decodedTransfer)).toEqual([
       'amount',
       'ephemeral_pub_key',
       'metadata',

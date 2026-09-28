@@ -127,8 +127,8 @@ export function buildBatchSendTx(params: BuildBatchSendTxParams): BuildBatchSend
     const tokenContract = firstAsset.contractId(networkPassphrase);
     const contract = new Contract(batchSenderContract);
     const transfers = xdr.ScVal.scvVec(
-      stealthAddresses.map((stealth: GeneratedStealthAddress, index: number) =>
-        xdr.ScVal.scvMap([
+      stealthAddresses.map((stealth: GeneratedStealthAddress, index: number) => {
+        const transferEntries = [
           new xdr.ScMapEntry({
             key: xdr.ScVal.scvSymbol('stealth_address'),
             val: new Address(stealth.stealthAddress).toScVal(),
@@ -145,8 +145,9 @@ export function buildBatchSendTx(params: BuildBatchSendTxParams): BuildBatchSend
             key: xdr.ScVal.scvSymbol('metadata'),
             val: xdr.ScVal.scvBytes(Buffer.from([stealth.viewTag])),
           }),
-        ]),
-      ),
+        ];
+        return xdr.scvSortedMap(transferEntries);
+      }),
     );
 
     builder = builder.addOperation(
